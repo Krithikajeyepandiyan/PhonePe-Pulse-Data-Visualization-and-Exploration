@@ -98,12 +98,14 @@ def Insurance_count_amount_Y(df,year):
 # Ins amt
         fig_amount=px.bar(iacyg,x ='States',y='Insurance_Amount',title=f'Insurance Amount - {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_amount.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_amount)
     
     with col2:
 # ins count
         fig_count=px.bar(iacyg,x ='States',y='Insurance_Count',title=f'Insurance Count- {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_count.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_count)
 
     col1,col2= st.columns(2)
@@ -133,6 +135,7 @@ def Insurance_count_amount_Y(df,year):
             height=600,width=600
         )
         fig1.update_geos(visible=False)
+        fig1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.2)
         # Display the figure in notebook
         st.plotly_chart(fig1)
         with col2:
@@ -152,6 +155,7 @@ def Insurance_count_amount_Y(df,year):
                 height=600,width=600
             )
             fig2.update_geos(visible=False)
+            fig2.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.3)
             # Display the figure in notebook
             st.plotly_chart(fig2)
 
@@ -170,11 +174,13 @@ def Insurance_count_amount_Q(df,quarter):
 # Ins amt
         fig_q_amount=px.bar(iacqg,x ='States',y='Insurance_Amount',title=f'Insurance Amount for Quarter - {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_q_amount.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_q_amount)
     with col2:
 # ins count
         fig_q_count=px.bar(iacqg,x ='States',y='Insurance_Count',title=f'Insurance Count for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_q_count.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_q_count)
 
     col1,col2= st.columns(2)
@@ -204,6 +210,7 @@ def Insurance_count_amount_Q(df,quarter):
             height=600,width=600
         )
         fig5.update_geos(visible=False)
+        fig5.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig5)
 
     with col2:
@@ -223,6 +230,7 @@ def Insurance_count_amount_Q(df,quarter):
             height=600,width=600
         )
         fig6.update_geos(visible=False)
+        fig6.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig6)
 
         return iacq
@@ -239,11 +247,13 @@ def Transaction_count_amount_Y(df,year):
 # Ins amt
         fig_amount=px.bar(tacyg,x ='States',y='Transaction_Amount',title=f'Transaction Amount - {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_amount.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_amount)
     with col2:
 # ins count
         fig_count=px.bar(tacyg,x ='States',y='Transaction_Count',title=f'Transaction Count- {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_count.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_count)
     
     col1,col2=st.columns(2)
@@ -272,6 +282,7 @@ def Transaction_count_amount_Y(df,year):
         height=600,width=600
         )
         fig3.update_geos(visible=False)
+        fig3.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         # Display the figure in notebook
         st.plotly_chart(fig3)
     with col2:
@@ -290,6 +301,7 @@ def Transaction_count_amount_Y(df,year):
             height=600,width=600
         )
         fig4.update_geos(visible=False)
+        fig4.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         # Display the figure in notebook
         st.plotly_chart(fig4)  # Use 'colab' renderer for Jupyter Notebooks
         return tacy
@@ -306,11 +318,13 @@ def Transaction_count_amount_Q(df,quarter):
 # Ins amt
         fig_amount=px.bar(tacqg,x ='States',y='Transaction_Amount',title=f'Transaction Amount for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_amount.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart (fig_amount)
 # ins count
     with col2:
         fig_count=px.bar(tacqg,x ='States',y='Transaction_Count',title=f'Transaction Count for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
+        fig_count.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_count)
 
     col1,col2= st.columns(2)
@@ -339,6 +353,7 @@ def Transaction_count_amount_Q(df,quarter):
             height=600,width=600
         )
         fig7.update_geos(visible=False)
+        fig7.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         # Display the figure in notebook
         st.plotly_chart(fig7)
     with col2:
@@ -357,6 +372,7 @@ def Transaction_count_amount_Q(df,quarter):
             height=600,width=600
         )
         fig8.update_geos(visible=False)
+        fig8.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig8) 
 
         return tacq
@@ -381,6 +397,7 @@ def Agg_trans_method(df,states):
                         hole=0.5,
                         color_discrete_sequence=px.colors.sequential.Bluered_r
                         )
+        fig_pie1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_pie1) 
     
     with col2:
@@ -392,6 +409,7 @@ def Agg_trans_method(df,states):
                         hole=0.5,
                         color_discrete_sequence=px.colors.sequential.Bluered_r
                         )
+        fig_pie2.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_pie2) 
 
 def Agg_user_Y(df,year):
@@ -403,6 +421,7 @@ def Agg_user_Y(df,year):
 # User Count
     fig_line_1= px.bar(uacyg, x="Brands",y= "User_Count", title=f" BRANDS AND USER COUNT-{year}",
                     width=1000,color_discrete_sequence=px.colors.sequential.haline_r)
+    fig_line_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
     st.plotly_chart(fig_line_1)
     return uacy
 
@@ -415,6 +434,7 @@ def Agg_user_Q(df,quarter):
 # User Count
     fig_pie_1= px.pie(data_frame=uacq, names= "Brands", values="User_Count", hover_data= "Percentage",
                       width=1000,title=f"USER COUNT PERCENTAGE FOR QUARTER {quarter}",hole=0.5, color_discrete_sequence= px.colors.sequential.Magenta_r)
+    fig_pie_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
     st.plotly_chart(fig_pie_1)
     
     return uacq
@@ -426,7 +446,8 @@ def Aggre_user_plot_3(df,state):
     aguqyg= pd.DataFrame(aguqy.groupby("Brands")["User_Count"].sum())
     aguqyg.reset_index(inplace= True)
 
-    fig_bar5= px.bar(aguqyg, x= "Brands", y= "User_Count", width=1000)
+    fig_bar5= px.bar(aguqyg, x= "Brands", y= "User_Count",title=f'{state}-Brands And User Count', width=1000)
+    fig_bar5.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
     st.plotly_chart(fig_bar5)
 
 def map_insure_plot_1(df,state):
@@ -439,6 +460,7 @@ def map_insure_plot_1(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Amount",
                               width=600, height=500, title= f"{state} District Insurance Amount",
                               color_discrete_sequence= px.colors.sequential.Mint_r)
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
         
 
@@ -446,7 +468,7 @@ def map_insure_plot_1(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Count",
                               width=600, height= 500, title= f"{state} District Insurance Count",
                               color_discrete_sequence= px.colors.sequential.Mint)
-        
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
 
 
@@ -460,12 +482,14 @@ def map_insure_plot_2(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Amount",
                               width=600, height=500, title= f"{state} District Insurance Amount",
                               color_discrete_sequence= px.colors.sequential.Mint_r)
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
         
     with col2:
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Count",
                               width=600, height= 500, title= f"{state} District Insurance Count",
                               color_discrete_sequence= px.colors.sequential.Mint)
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
 
 
@@ -479,6 +503,7 @@ def map_trans_plot_1(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Amount",
                               width=600, height=500, title= f"{state} District Transaction Amount",
                               color_discrete_sequence= px.colors.sequential.Mint_r)
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
         
 
@@ -487,6 +512,7 @@ def map_trans_plot_1(df,state):
                               width=600, height= 500, title= f"{state} District Transaction Count",
                               color_discrete_sequence= px.colors.sequential.Mint)
         
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
 
 def map_trans_plot_2(df,state):
@@ -499,6 +525,7 @@ def map_trans_plot_2(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Amount",
                               width=600, height=500, title= f"{state} District Transaction Amount",
                               color_discrete_sequence= px.colors.sequential.Mint_r)
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
         
 
@@ -506,32 +533,34 @@ def map_trans_plot_2(df,state):
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Count",
                               width=600, height= 500, title= f"{state} District Transaction Count",
                               color_discrete_sequence= px.colors.sequential.Mint)
-        
+        fig_map_bar_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_bar_1)
 
 def map_user_plot_1(df, year):
-    muy= df[df["Year"] == year]
-    muy.reset_index(drop= True, inplace= True)
-    muyg= muy.groupby("States")[["Registered_User", "App_Opens"]].sum()
-    muyg.reset_index(inplace= True)
+    # Filter the DataFrame by the selected year
+    df_year = df[df["Year"] == year]
 
-    col1,col2=st.columns(2)
+    # Group the filtered DataFrame by states and sum the values
+    muyg = df_year.groupby("States")[["Registered_User", "App_Opens"]].sum().reset_index()
+
+    # Plotting
+    col1, col2 = st.columns(2)
     with col1:
         fig_map_user_plot_1 = px.line(muyg, x="States", y=["Registered_User"],
-                                markers=True, width=1000, height=800,
-                                title=f" Registered User And App_Opens in {year}",
-                                color_discrete_sequence=px.colors.sequential.Viridis_r)
-
+                                      markers=True, width=1000, height=800,
+                                      title=f"Registered User in {year}",
+                                      color_discrete_sequence=px.colors.sequential.Viridis_r)
+        fig_map_user_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_user_plot_1)
     with col2:
-        fig_map_user_plot_1 = px.line(muyg, x="States", y=["App_Opens"],
-                                markers=True, width=1000, height=800,
-                                title=f" Registered User And App_Opens in {year}",
-                                color_discrete_sequence=px.colors.sequential.Viridis_r)
+        fig_map_user_plot_2 = px.line(muyg, x="States", y=["App_Opens"],
+                                      markers=True, width=1000, height=800,
+                                      title=f"App_Opens in {year}",
+                                      color_discrete_sequence=px.colors.sequential.Viridis_r)
+        fig_map_user_plot_2.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
+        st.plotly_chart(fig_map_user_plot_2)
 
-        st.plotly_chart(fig_map_user_plot_1)
-
-    return muy
+    return df_year
 
 def map_user_plot_2(df, quarter):
     muyq= df[df["Quarter"] == quarter]
@@ -544,11 +573,13 @@ def map_user_plot_2(df, quarter):
         fig_map_user_plot_1= px.line(muyqg, x= "States", y= ["Registered_User"], markers= True,
                                     title= f" Quarter Wise Registered_User  {df['Year'].min()}, {quarter}",
                                     width= 1000,height=800,color_discrete_sequence= px.colors.sequential.Rainbow_r)
+        fig_map_user_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_user_plot_1)
     with col2:
         fig_map_user_plot_1= px.line(muyqg, x= "States", y= ["App_Opens"], markers= True,
                                     title= f" Quarter Wise  App_Opens {df['Year'].min()}, {quarter}",
                                     width= 1000,height=800,color_discrete_sequence= px.colors.sequential.Rainbow_r)
+        fig_map_user_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_user_plot_1)
     return muyq
 
@@ -563,13 +594,16 @@ def map_user_plot_3(df, state):
         fig_map_user_plot_1= px.bar(muyqsg, x= "Registered_User",y= "District",orientation="h",
                                     title= f" Registered User in {state}",height=800,
                                     color_discrete_sequence= px.colors.sequential.Rainbow_r)
+        fig_map_user_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_user_plot_1)
 
     with col2:
         fig_map_user_plot_2= px.bar(muyqsg, x= "App_Opens", y= "District",orientation="h",
                                     title= f" App_Opens in {state}",height=800,
                                     color_discrete_sequence= px.colors.sequential.Rainbow)
+        fig_map_user_plot_2.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
         st.plotly_chart(fig_map_user_plot_2)
+    return muyqs
 
 def top_user_plot_1(df,year):
     tuy= df[df["Year"] == year]
@@ -580,6 +614,7 @@ def top_user_plot_1(df,year):
 
     fig_top_plot_1= px.bar(tuyg, x= "States", y= "Registered_User", barmode= "group", color= "Quarter",
                             width=1000, height= 800, color_continuous_scale= px.colors.sequential.Burgyl)
+    fig_top_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
     st.plotly_chart(fig_top_plot_1)
 
     return tuy
@@ -594,42 +629,47 @@ def top_user_plot_2(df,state):
     fig_top_plot_1= px.bar(tuys, x= "Quarter", y= "Registered_User",barmode= "group",
                            width=1000, height= 800,color= "Registered_User",hover_data="Pincode",
                             color_continuous_scale= px.colors.sequential.Magenta)
+    fig_top_plot_1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.35)
     st.plotly_chart(fig_top_plot_1)
+    return tuys
 
 # questions
 # 1.Which state has the highest number of transaction counts in a specific year and quarter?
 def ques1():
+    
     q1=Agg_transaction[['Transaction_Method', 'Transaction_Amount']]
     t1=q1.groupby('Transaction_Method')['Transaction_Amount'].sum().sort_values(ascending=False)
     df1=pd.DataFrame(t1).reset_index()
 
-    fig_q1 = px.bar(df1, x= "Transaction_Method", y= "Transaction_Amount", title=" MAXIMUM TRANSACTION AMOUNT BY TRANSACTION METHOD",
+    fig_q1 = px.bar(df1, x= "Transaction_Method", y= "Transaction_Amount", title="MAXIMUM AGGREGATED TRANSACTION AMOUNT BY TRANSACTION METHOD",
                 color_discrete_sequence= px.colors.sequential.Aggrnyl,
                         template='plotly_dark')
-    fig_q1.show(renderer='colab')
+    fig_q1.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.07)
     return st.plotly_chart(fig_q1)
 
     
 # 2.Which transaction method is most commonly used in a specific state during a certain year and quarter?
-def qeus2():
+def ques2():
     q2=Agg_transaction[['Transaction_Method', 'Transaction_Count']]
     t2=q2.groupby('Transaction_Method')['Transaction_Count'].sum().sort_values(ascending=False)
     df2=pd.DataFrame(t2).reset_index()
 
-    fig_q2 = px.bar(df2, x= "Transaction_Method", y= "Transaction_Count", title=" MAXIMUM TRANSACTION COUNT BY TRANSACTION METHOD",
+    fig_q2 = px.bar(df2, x= "Transaction_Method", y= "Transaction_Count", title="MAXIMUM AGGREGATED TRANSACTION COUNT BY TRANSACTION METHOD",
                 color_discrete_sequence= px.colors.sequential.Aggrnyl,
                         template='plotly_dark')
+    fig_q2.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.07)
     return st.plotly_chart(fig_q2)
 
 # 3.Which brand has the highest user count  
 def ques3():
     q3=Agg_user[['Brands', 'User_Count']]
     t3=q3.groupby('Brands')['User_Count'].sum().sort_values(ascending=False)
-    df3=pd.DataFrame(t3).reset_index()
+    df3=pd.DataFrame(t3).reset_index().head(10)
 
-    fig_q3 = px.bar(df3, x= "Brands", y= "User_Count", title="USER COUNT BY BRANDS ",
+    fig_q3 = px.bar(df3, x= "Brands", y= "User_Count", title="TOP 10 USER COUNT BY BRANDS",
                 color_discrete_sequence= px.colors.sequential.Aggrnyl,
                         template='plotly_dark')
+    fig_q3.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.4)
     return st.plotly_chart(fig_q3)
 
 # 4	transaction
@@ -637,9 +677,11 @@ def ques4():
     q4= Map_user[["States", "App_Opens"]]
     t4= q4.groupby("States")["App_Opens"].sum().sort_values(ascending=False)
     df4= pd.DataFrame(t4).reset_index().tail(10)
-
-    fig_q4= px.bar(df4, x= "States", y= "App_Opens", title="LOWEST 10 STATES WITH APP_OPENS",
-            color_discrete_sequence= px.colors.sequential.dense_r)
+    
+    fig_q4= px.bar(df4, x= "States", y= "App_Opens", title="LOWEST 10 STATES WITH APP_OPEN",
+                color_discrete_sequence= px.colors.sequential.dense_r)
+    
+    fig_q4.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.3)
     return st.plotly_chart(fig_q4)
 
 # 5.lowest transaction amount and state
@@ -648,67 +690,81 @@ def ques5():
     t5= q5.groupby("States")["Transaction_Amount"].sum().sort_values(ascending= False)
     df5= pd.DataFrame(t5).reset_index().tail(10)
 
-    fig_q5= px.bar(df5, x= "States", y= "Transaction_Amount",title= "LOWEST TRANSACTION AMOUNT and STATES",
+    fig_q5= px.bar(df5, x= "States", y= "Transaction_Amount",title= "LOWEST AGGREGATED TRANSACTION AMOUNT AND STATES",
                     color_discrete_sequence= px.colors.sequential.Oranges_r)
+    fig_q5.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.2)
     return st.plotly_chart(fig_q5)
 # 6.districts with highest transaction amount
 def ques6():
-    q6= Agg_transaction[["District", "Transaction_Amount"]]
+    q6= Map_transaction[["District", "Transaction_Amount"]]
     t6= q6.groupby("District")["Transaction_Amount"].sum().sort_values(ascending=False)
     df6= pd.DataFrame(t6).head(10).reset_index()
 
-    fig_q6= px.pie(df6, values= "Transaction_Amount", names= "District", title="TOP 10 DISTRICTS OF HIGHEST TRANSACTION AMOUNT",
+    fig_q6= px.pie(df6, values= "Transaction_Amount", names= "District", title="TOP 10 DISTRICTS OF HIGHEST MAP TRANSACTION AMOUNT",
                     color_discrete_sequence=px.colors.sequential.Emrld_r)
+    fig_q6.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.07)
     return st.plotly_chart(fig_q6)
 # 7.States With Lowest Trasaction Count
 def ques7():
-    q7= Agg_transaction[["States", "Transaction_Count"]]
-    t7= q7.groupby("States")["Transaction_Count"].sum().sort_values(ascending=True)
-    df7= pd.DataFrame(t7).reset_index()
+    q7 = Agg_transaction[["States", "Transaction_Count"]]
+    t7 = q7.groupby("States")["Transaction_Count"].sum().sort_values(ascending=False)
+    df7 = pd.DataFrame(t7).reset_index()
 
-    fig_q7= px.bar(df7, x= "States", y= "Transaction_Count", title= "STATES WITH LOWEST TRANSACTION COUNT",
-                    color_discrete_sequence= px.colors.sequential.Jet_r)
+    fig_q7 = px.bar(df7, x="States", y="Transaction_Count", title="STATES WITH LOWEST AGGREGATED TRANSACTION COUNT",
+                    color_continuous_scale='Rainbow', template='plotly_dark')
+
+    fig_q7.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.2)
+    
     return st.plotly_chart(fig_q7)
-# 8.States With Highest Trasaction Count
+# 8.States With Highest Trasaction Amount
 def ques8():
-    q8= Agg_transaction[["States", "Transaction_Count"]]
-    t8= q8.groupby("States")["Transaction_Count"].sum().sort_values(ascending=False)
+    q8= Agg_transaction[["States", "Transaction_Amount"]]
+    t8= q8.groupby("States")["Transaction_Amount"].sum().sort_values(ascending=False)
     df8= pd.DataFrame(t8).reset_index()
 
-    fig_q8= px.bar(df8, x= "States", y= "Transaction_count", title= "STATES WITH HIGHEST TRANSACTION COUNT",
+    fig_q8= px.bar(df8, x= "States", y= "Transaction_Amount", title= "STATES WITH HIGHEST AGGREGATED TRANSACTION AMOUNT",
                     color_discrete_sequence= px.colors.sequential.Magenta_r)
+    fig_q8.update_layout(font_family="Times New Roman", title_font_family="Times New Roman",title_x=0.2)
     return st.plotly_chart(fig_q8)
 # 
 def ques9():
-    q9=Map_transaction[['District','Transaction_Count']]
-    t9=q9.groupby('District')['Transaction_Count'].sum().sort_values(ascending= True)
-    df9=pd.DataFrame(t9).reset_index().head(10)
+    q9 = Map_transaction[['District', 'Transaction_Count']]
+    t9 = q9.groupby('District')['Transaction_Count'].sum().sort_values(ascending=False)
+    df9 = pd.DataFrame(t9).reset_index().head(10)
  
-    fig_q9 = px.line(df9, x='District', y=['Transaction_Count'],
-                        title='TOP 10 TRANSACTION COUNT BY DISTRICT ',
-                        labels={'District': 'District', 'value': 'Count/Amount'},
-                        template='plotly_dark', markers=True)
-  
+    # Create a bar chart
+    fig_q9 = px.bar(df9, x='District', y='Transaction_Count',
+                    title='Top 10 MAP TRANSACTION COUNT BY DISTRICT',
+                    labels={'District': 'District', 'Transaction_Count': 'Count'},
+                    template='plotly_dark')
+
+    fig_q9.update_layout(font_family="Times New Roman", title_font_family="Times New Roman", title_x=0.2)
+
     return st.plotly_chart(fig_q9)
 
-def ques10():
-    q10=Map_transaction[['District','Transaction_Amount']]
-    t10=q10.groupby('District')['Transaction_Amount'].sum().sort_values(ascending= True)
-    df10=pd.DataFrame(t10).reset_index().head(10)
 
-    fig_q10 = px.line(df10, x='District', y=['Transaction_Amount'],
-                        title='TOP 10 TRANSACTION AMOUNT BY DISTRICT',
-                        labels={'District': 'District', 'value': 'Count/Amount'},
-                        template='plotly_dark', markers=True)
-  
+def ques10():
+    q10 = Map_transaction[['District', 'Transaction_Amount']]
+    t10 = q10.groupby('District')['Transaction_Amount'].sum().sort_values(ascending=False)
+    df10 = pd.DataFrame(t10).reset_index().head(10)
+
+    fig_q10 = px.bar(df10, x='District', y='Transaction_Amount',
+                     title='Top 10 MAP TRANSACTION AMOUNT BY DISTRICT',
+                     labels={'District': 'District', 'Transaction_Amount': 'Amount'},
+                     template='plotly_dark', 
+                     barmode='group')
+
+    fig_q10.update_layout(font_family="Times New Roman", title_font_family="Times New Roman", title_x=0.2)
     return st.plotly_chart(fig_q10)
+
     
 #Streamlit part
 
 st.set_page_config(layout= "wide")
 
-st.title("PHONEPE DATA VISUALIZATION AND EXPLORATION")
-st.write("")
+
+st.markdown('<h1 style="text-align: center; font-family: Times New Roman; color: #3263a8;">PHONEPE DATA VISUALIZATION AND EXPLORATION</h1>', unsafe_allow_html=True)
+
 
 with st.sidebar:
     select= option_menu("Main Menu",[ "Data Exploration", "Top Charts"])
@@ -718,8 +774,9 @@ if select == "Data Exploration":
     tab1, tab2, tab3= st.tabs(["Aggregated Analysis", "Map Analysis", "Top Analysis"])
 
     with tab1:
+        
         method = st.radio("**Select the Analysis Method**",["Insurance Analysis", "Transaction Analysis", "User Analysis"])
-
+        
         if method == "Insurance Analysis":
             col1,col2= st.columns(2)
             with col1:
@@ -814,20 +871,15 @@ if select == "Data Exploration":
             map_trans_plot_2(df_map_tran_Y_Q, state_m4)
 
         elif method_map == "Map User Analysis":
-            col1,col2= st.columns(2)
-            with col1:
-                year_mu3= st.selectbox("**Select the Year**",Map_user["Year"].unique(),key='Year_Selection')
-            map_user_Y= map_user_plot_1(Map_user, year_mu3)
+        
+            year_au= st.selectbox("Select the Year",Map_user["Year"].unique())
+            map_user_Y= map_user_plot_1(Map_user,year_au)
 
-            col1,col2= st.columns(2)
-            with col1:
-                quarter_mu3= st.selectbox("**Select the Quarter",map_user_Y["Quarter"].unique())
-            map_user_Y_Q= map_user_plot_2(map_user_Y,quarter_mu3)
+            quarter_au= st.selectbox("Select the Quarter",map_user_Y["Quarter"].unique())
+            map_user_Y_Q= map_user_plot_2(Map_user,quarter_au)
 
-            col1,col2= st.columns(2)
-            with col1:
-                state_mu3= st.selectbox("**Select the State**",map_user_Y_Q["States"].unique(),key='State_selection')
-            map_user_plot_3(map_user_Y_Q, state_mu3)
+            state_au= st.selectbox("**Select the State**",map_user_Y["States"].unique())
+            map_user_plot_3(map_user_Y_Q,state_au)
 
     with tab3:
         method_top = st.radio("**Select the Analysis Method(TOP)**",["Top Insurance Analysis", "Top Transaction Analysis", "Top User Analysis"])
@@ -835,35 +887,34 @@ if select == "Data Exploration":
         if method_top == "Top Insurance Analysis":
             col1,col2= st.columns(2)
             with col1:
-                years_t1= st.slider("**Select the Year**", Top_insurance["Year"].min(), Top_insurance["Year"].max(),Top_insurance["Year"].min())
+                years_t1= st.slider("**Select the Year**", Top_insurance["Year"].min(), Top_insurance["Year"].max(),Top_insurance["Year"].min(), key="unique_key_years_t1")
  
             df_top_insur_Y= Insurance_count_amount_Y(Top_insurance,years_t1)
 
             
             col1,col2= st.columns(2)
             with col1:
-                quarters_t1= st.slider("**Select the Quarter**", df_top_insur_Y["Quarter"].min(), df_top_insur_Y["Quarter"].max(),df_top_insur_Y["Quarter"].min())
+                quarters_t1= st.slider("**Select the Quarter**", df_top_insur_Y["Quarter"].min(), df_top_insur_Y["Quarter"].max(),df_top_insur_Y["Quarter"].min(), key="unique_key_quarter_t1")
 
             df_top_insur_Y_Q= Insurance_count_amount_Q(df_top_insur_Y, quarters_t1)
         
         elif method_top == "Top Transaction Analysis":
             col1,col2= st.columns(2)
             with col1:
-                years_t2= st.slider("**Select the Year**", Top_transaction["Year"].min(), Top_transaction["Year"].max(),Top_transaction["Year"].min())
+                years_t2= st.slider("**Select the Year**", Top_transaction["Year"].min(), Top_transaction["Year"].max(),Top_transaction["Year"].min(), key="unique_key_years_t2")
  
             df_top_tran_Y= Transaction_count_amount_Y(Top_transaction,years_t2)
 
-            
             col1,col2= st.columns(2)
             with col1:
-                quarters_t2= st.slider("**Select the Quarter**", df_top_tran_Y["Quarter"].min(), df_top_tran_Y["Quarter"].max(),df_top_tran_Y["Quarter"].min())
+                quarters_t2= st.slider("**Select the Quarter**", df_top_tran_Y["Quarter"].min(), df_top_tran_Y["Quarter"].max(),df_top_tran_Y["Quarter"].min(), key="unique_key_quarter_t2")
 
             df_top_tran_Y_Q= Transaction_count_amount_Q(df_top_tran_Y, quarters_t2)
 
         elif method_top == "Top User Analysis":
             col1,col2= st.columns(2)
             with col1:
-                years_t3= st.selectbox("**Select the Year**", Top_user["Year"].unique())
+                years_t3= st.selectbox("**Select the Year**", Top_user["Year"].unique(), key="unique_key_years_t3")
 
             df_top_user_Y= top_user_plot_1(Top_user,years_t3)
 
@@ -872,4 +923,48 @@ if select == "Data Exploration":
                 state_t3= st.selectbox("**Select the State**", df_top_user_Y["States"].unique(),key='State_Selection')
 
             df_top_user_Y_S= top_user_plot_2(df_top_user_Y,state_t3)
+
+if select == "Top Charts":
+
+    ques = st.selectbox("""**Select the Question**""",
+                    ('1. Maximum aggregated transaction amount by transaction method',
+                     '2. Maximum aggregated transaction count by transaction method',
+                     '3. Top 10 User count by brands for aggregated user',
+                     '4. Lowest 10 states with app_opens',
+                     '5. Lowest aggregated transaction amount and states',
+                     '6. Top 10 districts of highest map transaction amount',
+                     '7. States with lowest transaction count',
+                     '8. States with highest transaction Amount',
+                     '9. Top 10 transaction count by district',
+                     '10. Top 10 transaction Amount by district'
+                    ))
     
+    if ques=="1. Maximum aggregated transaction amount by transaction method":
+        ques1()
+
+    elif ques=="2. Maximum aggregated transaction count by transaction method":
+        ques2()
+
+    elif ques=="3. Top 10 User count by brands for aggregated user":
+        ques3()
+
+    elif ques=="4. Lowest 10 states with app_opens":
+        ques4()
+
+    elif ques=="5. Lowest aggregated transaction amount and states":
+        ques5()
+
+    elif ques=="6. Top 10 districts of highest map transaction amount":
+        ques6()
+
+    elif ques=="7. States with lowest transaction count":
+        ques7()
+
+    elif ques=="8. States with highest transaction Amount":
+        ques8()
+
+    elif ques=="9. Top 10 transaction count by district":
+        ques9()
+
+    elif ques=="10. Top 10 transaction Amount by district":
+        ques10()
