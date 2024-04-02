@@ -9,405 +9,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from streamlit_option_menu import option_menu
 
-
-# insurance file
-def agg_ins():
-    
-    ins_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/aggregated/insurance/country/india/state/'
-
-    agg_ins_list=os.listdir(ins_path)
-
-    col={'States':[],'Year':[],'Quarter':[],'Insurance_Method':[],'Insurance_Count':[],'Insurance_Amount':[]   }
-
-    for states in agg_ins_list:
-        curr_state=ins_path+states+'/'
-        agg_state_list= os.listdir(curr_state)
-
-        for year in agg_state_list:
-            curr_year=curr_state+year+'/'
-            agg_year_list=os.listdir(curr_year)
-
-            for file in agg_year_list:
-                curr_file=curr_year+ file
-                data=open(curr_file,'r')
-
-                Agg1=json.load(data)
-
-                for i in Agg1['data']['transactionData']:
-                    method=i['name']
-                    count=i['paymentInstruments'][0]['count']
-                    amount=i['paymentInstruments'][0]['amount']
-                    col['Insurance_Method'].append(method)
-                    col['Insurance_Count'].append(count)
-                    col['Insurance_Amount'].append(amount)
-                    col['States'].append(states)
-                    col['Year'].append(year)
-                    col['Quarter'].append(int(file.strip('.json')))
-                Agg_ins=pd.DataFrame(col)
-
-                Agg_ins['States']= Agg_ins['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Agg_ins['States']=Agg_ins['States'].str.replace('-', ' ')
-                Agg_ins['States']=Agg_ins['States'].str.title()
-                Agg_ins['States']=Agg_ins['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Agg_ins
-            
-    Agg_ins=agg_ins()
-            
-#trans file
-def agg_trans():
-    
-    trans_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/aggregated/transaction/country/india/state/'
-
-    agg_trans_list=os.listdir(trans_path)
-
-    col1={'States':[],'Year':[],'Quarter':[],'Transaction_Method':[],'Transaction_Count':[],'Transaction_Amount':[]   }
-
-    for states in agg_trans_list:
-        curr_state=trans_path+states+'/'
-        agg_state_list=os.listdir(curr_state)
-
-        for year in agg_state_list:
-            curr_year= curr_state+ year+'/'
-            agg_year_list=os.listdir(curr_year)
-
-            for file in agg_year_list:
-                curr_file= curr_year+file
-                data=open(curr_file,'r')
-
-                Agg2=json.load(data)
-
-                for i in Agg2['data']['transactionData']:
-                    method=i['name']
-                    count=i['paymentInstruments'][0]['count']
-                    amount=i['paymentInstruments'][0]['amount']
-                    col1['Transaction_Method'].append(method)
-                    col1['Transaction_Count'].append(count)
-                    col1['Transaction_Amount'].append(amount)
-                    col1['States'].append(states)
-                    col1['Year'].append(year)
-                    col1['Quarter'].append(int(file.strip('.json')))
-                    
-                Agg_trans=pd.DataFrame(col1)
-
-                Agg_trans['States']= Agg_trans['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Agg_trans['States']=Agg_trans['States'].str.replace('-', ' ')
-                Agg_trans['States']=Agg_trans['States'].str.title()
-                Agg_trans['States']=Agg_trans['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-                Agg_trans['Transaction_Amount']=Agg_trans['Transaction_Amount'].round()
-                Agg_trans['Year']=Agg_trans['Year'].astype(int)
-
-                return Agg_trans
-        Agg_trans=agg_trans()
-
-# user file
-def agg_user():
-    
-    user_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/aggregated/user/country/india/state/'
-
-    agg_user_list=os.listdir(user_path)
-
-    col2= {'States':[],'Year':[],'Quarter':[],'Brands':[],'User_Count':[],'Percentage':[]   }
-
-    for states in agg_user_list:
-        curr_state=user_path+states+'/'
-        agg_state_list=os.listdir(curr_state)
-
-        for year in agg_state_list:
-            curr_year=curr_state+year+'/'
-            agg_year_list=os.listdir(curr_year)
-
-            for file in agg_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Agg3=json.load(data)
-
-                try:
-
-                    for i in Agg3['data']['usersByDevice']:
-                        brands=i['brand']
-                        count=i['count']
-                        percentage=i['percentage']
-                        col2['Brands'].append(brands)
-                        col2['User_Count'].append(count)
-                        col2['Percentage'].append(percentage)
-                        col2['States'].append(states)
-                        col2['Year'].append(year)
-                        col2['Quarter'].append(int(file.strip('.json')))
-                except:
-                    pass
-                Agg_user=pd.DataFrame(col2)
-
-                Agg_user['States']= Agg_user['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Agg_user['States']=Agg_user['States'].str.replace('-', ' ')
-                Agg_user['States']=Agg_user['States'].str.title()
-                Agg_user['States']=Agg_user['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Agg_user
-            Agg_user=agg_user()
-
-# map ins file
-def map_ins():
-
-    map_ins_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/map/insurance/hover/country/india/state/'
-
-    map_ins_list=os.listdir(map_ins_path)
-
-    col_map_1={'States':[],'Year':[],'Quarter':[],'District':[],'Insurance_Count':[],'Insurance_Amount':[]   }
-
-    for states in map_ins_list:
-        curr_state=map_ins_path+states+'/'
-        map_state_list=os.listdir(curr_state)
-
-        for year in map_state_list:
-            curr_year=curr_state+year+'/'
-            map_year_list=os.listdir(curr_year)
-
-            for file in map_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Map1=json.load(data)
-
-                for i in Map1['data']['hoverDataList']:
-                    name=i['name']
-                    count = i["metric"][0]["count"]
-                    amount = i["metric"][0]["amount"]
-                    col_map_1["District"].append(name)
-                    col_map_1["Insurance_Count"].append(count)
-                    col_map_1["Insurance_Amount"].append(amount)
-                    col_map_1["States"].append(states)
-                    col_map_1["Year"].append(year)
-                    col_map_1["Quarter"].append(int(file.strip(".json")))
-
-                Map_ins=pd.DataFrame(col_map_1)
-
-                Map_ins['States']= Map_ins['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Map_ins['States']=Map_ins['States'].str.replace('-', ' ')
-                Map_ins['States']=Map_ins['States'].str.title()
-                Map_ins['States']=Map_ins['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Map_ins
-            Map_ins=map_ins()
-
-# map trans file
-def map_trans():
-
-    map_trans_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/map/transaction/hover/country/india/state/'
-
-    map_trans_list=os.listdir(map_trans_path)
-
-    col_map_2={'States':[],'Year':[],'Quarter':[],'District':[],'Transaction_Count':[],'Transaction_Amount':[]   }
-
-    for states in map_trans_list:
-        curr_state=map_trans_path+states+'/'
-        map_state_list=os.listdir(curr_state)
-
-        for year in map_state_list:
-            curr_year=curr_state+year+'/'
-            map_year_list=os.listdir(curr_year)
-
-            for file in map_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Map2=json.load(data)
-
-                for i in Map2['data']['hoverDataList']:
-                    name=i['name']
-                    count = i["metric"][0]["count"]
-                    amount = i["metric"][0]["amount"]
-                    col_map_2["District"].append(name)
-                    col_map_2["Transaction_Count"].append(count)
-                    col_map_2["Transaction_Amount"].append(amount)
-                    col_map_2["States"].append(states)
-                    col_map_2["Year"].append(year)
-                    col_map_2["Quarter"].append(int(file.strip(".json")))
-
-                Map_trans=pd.DataFrame(col_map_2)
-
-                Map_trans['States']= Map_trans['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Map_trans['States']=Map_trans['States'].str.replace('-', ' ')
-                Map_trans['States']=Map_trans['States'].str.title()
-                Map_trans['States']=Map_trans['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Map_trans
-            
-        Map_trans=map_trans()
-
-            
-# map user file
-def map_user():
-
-    map_user_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/map/user/hover/country/india/state/'
-
-    map_user_list=os.listdir(map_user_path)
-
-    col_map_3={'States':[],'Year':[],'Quarter':[],'District':[],'Registered_User':[],'App_Opens':[]   }
-
-    for states in map_user_list:
-        curr_state=map_user_path+states+'/'
-        map_state_list=os.listdir(curr_state)
-
-        for year in map_state_list:
-            curr_year=curr_state+year+'/'
-            map_year_list=os.listdir(curr_year)
-
-            for file in map_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Map3=json.load(data)
-
-                for i in Map3["data"]["hoverData"].items():
-                    district = i[0]
-                    registereduser = i[1]["registeredUsers"]
-                    appopens = i[1]["appOpens"]
-                    col_map_3["District"].append(district)
-                    col_map_3["Registered_User"].append(registereduser)
-                    col_map_3["App_Opens"].append(appopens)
-                    col_map_3["States"].append(states)
-                    col_map_3["Year"].append(year)
-                    col_map_3["Quarter"].append(int(file.strip(".json")))
-
-                Map_user=pd.DataFrame(col_map_3)
-
-                Map_user['States']= Map_user['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Map_user['States']=Map_user['States'].str.replace('-', ' ')
-                Map_user['States']=Map_user['States'].str.title()
-                Map_user['States']=Map_user['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Map_user
-            Map_user=map_user
-# map ins file
-def top_ins():
-
-    top_ins_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/top/insurance/country/india/state/'
-    top_ins_list=os.listdir(top_ins_path)
-
-    col_top_1={'States':[],'Year':[],'Quarter':[],'Pincode':[],'Insurance_Count':[],'Insurance_Amount':[]   }
-
-    for states in top_ins_list:
-        curr_state=top_ins_path+states+'/'
-        top_state_list=os.listdir(curr_state)
-
-        for year in top_state_list:
-            curr_year=curr_state+year+'/'
-            top_year_list=os.listdir(curr_year)
-
-            for file in top_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Top1=json.load(data)
-
-                for i in Top1["data"]["pincodes"]:
-                    entityName = i["entityName"]
-                    count = i["metric"]["count"]
-                    amount = i["metric"]["amount"]
-                    col_top_1["Pincode"].append(entityName)
-                    col_top_1["Insurance_Count"].append(count)
-                    col_top_1["Insurance_Amount"].append(amount)
-                    col_top_1["States"].append(states)
-                    col_top_1["Year"].append(year)
-                    col_top_1["Quarter"].append(int(file.strip(".json")))
-
-                Top_ins=pd.DataFrame(col_top_1)
-
-                Top_ins['States']= Top_ins['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Top_ins['States']=Top_ins['States'].str.replace('-', ' ')
-                Top_ins['States']=Top_ins['States'].str.title()
-                Top_ins['States']=Top_ins['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-
-                return Top_ins
-            Top_ins=top_ins
-
-# top trans file
-def top_trans():
-
-    top_trans_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/top/transaction/country/india/state/'
-
-    top_trans_list=os.listdir(top_trans_path)
-
-    col_top_2={'States':[],'Year':[],'Quarter':[],'Pincode':[],'Transaction_Count':[],'Transaction_Amount':[]   }
-
-    for states in top_trans_list:
-        curr_state=top_trans_path+states+'/'
-        top_state_list=os.listdir(curr_state)
-
-        for year in top_state_list:
-            curr_year=curr_state+year+'/'
-            top_year_list=os.listdir(curr_year)
-
-            for file in top_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Top2=json.load(data)
-
-                for i in Top2["data"]["pincodes"]:
-                    entityName = i["entityName"]
-                    count = i["metric"]["count"]
-                    amount = i["metric"]["amount"]
-                    col_top_2["Pincode"].append(entityName)
-                    col_top_2["Transaction_Count"].append(count)
-                    col_top_2["Transaction_Amount"].append(amount)
-                    col_top_2["States"].append(states)
-                    col_top_2["Year"].append(year)
-                    col_top_2["Quarter"].append(int(file.strip(".json")))
-
-                Top_trans=pd.DataFrame(col_top_2)
-
-                Top_trans['States']= Top_trans['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Top_trans['States']=Top_trans['States'].str.replace('-', ' ')
-                Top_trans['States']=Top_trans['States'].str.title()
-                Top_trans['States']=Top_trans['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')  
-
-                return Top_trans
-            Top_trans=top_trans()         
-
-# top user file
-def top_user():
-
-    top_user_path='C:/Users/Krithika J/OneDrive/Tài liệu/ds proj/youtube_proj/Phonepe_Proj/pulse/data/top/user/country/india/state/'
-
-    top_user_list=os.listdir(top_user_path)
-
-    col_top_3={'States':[],'Year':[],'Quarter':[],'Pincode':[],'Registered_User':[]   }
-
-    for states in top_user_list:
-        curr_state=top_user_path+states+'/'
-        top_state_list=os.listdir(curr_state)
-
-        for year in top_state_list:
-            curr_year=curr_state+year+'/'
-            top_year_list=os.listdir(curr_year)
-
-            for file in top_year_list:
-                curr_file=curr_year+file
-                data=open(curr_file,'r')
-
-                Top3=json.load(data)
-
-                for i in Top3["data"]["pincodes"]:
-                    name = i["name"]
-                    registeredusers = i["registeredUsers"]
-                    col_top_3["Pincode"].append(name)
-                    col_top_3["Registered_User"].append(registeredusers)
-                    col_top_3["States"].append(states)
-                    col_top_3["Year"].append(year)
-                    col_top_3["Quarter"].append(int(file.strip(".json")))
-
-                Top_user=pd.DataFrame(col_top_3)
-
-                Top_user['States']= Top_user['States'].str.replace('andaman-&-nicobar-islands','Andaman & Nicobar')
-                Top_user['States']=Top_user['States'].str.replace('-', ' ')
-                Top_user['States']=Top_user['States'].str.title()
-                Top_user['States']=Top_user['States'].str.replace('Dadra & Nagar Haveli & Daman & Diu','Dadra and Nagar Haveli and Daman & Diu')
-                return Top_user
-            Top_user=top_user
-
 # Table creation-SQL Connection
 
 mydb = psycopg2.connect(
@@ -485,7 +86,7 @@ Top_user=pd.DataFrame(table9, columns= ("States", "Year", "Quarter", "Pincode","
 
 # plot
 
-def Agg_ins_Y(df,year):
+def Insurance_count_amount_Y(df,year):
     iacy=df[df['Year']==year]
     iacy.reset_index(drop=True,inplace=True)
 
@@ -495,13 +96,13 @@ def Agg_ins_Y(df,year):
     col1,col2= st.columns(2)
     with col1:
 # Ins amt
-        fig_amount=px.bar(iacyg,x ='States',y='Insurance_Amount',title=f'Insurance Amount - {year}',height=750,width=1000,
+        fig_amount=px.bar(iacyg,x ='States',y='Insurance_Amount',title=f'Insurance Amount - {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_amount)
     
     with col2:
 # ins count
-        fig_count=px.bar(iacyg,x ='States',y='Insurance_Count',title=f'Insurance Count- {year}',height=750,width=1000,
+        fig_count=px.bar(iacyg,x ='States',y='Insurance_Count',title=f'Insurance Count- {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_count)
 
@@ -529,34 +130,32 @@ def Agg_ins_Y(df,year):
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
             hover_data={"Insurance_Amount": True},
-            height=750,width=1000
+            height=600,width=600
         )
         fig1.update_geos(visible=False)
         # Display the figure in notebook
         st.plotly_chart(fig1)
-
+        with col2:
         # Create a choropleth map for India
-        fig2 = px.choropleth(   
-            iacyg,
-            geojson=data,
-            featureidkey='properties.ST_NM',
-            locations='States',
-            color='Insurance_Count',
-            color_continuous_scale='turbo',
-            range_color = (iacyg['Insurance_Count'].min(), iacyg['Insurance_Count'].max()),
-            title = f'Insurance Count- {year}',
-            fitbounds='locations',
-            hover_name='States',  # Column to display on hover
-            hover_data={"Insurance_Count": True},
-            height=750,width=1000
-        )
-        fig2.update_geos(visible=False)
-        # Display the figure in notebook
-        st.plotly_chart(fig2)
+            fig2 = px.choropleth(   
+                iacyg,
+                geojson=data,
+                featureidkey='properties.ST_NM',
+                locations='States',
+                color='Insurance_Count',
+                color_continuous_scale='turbo',
+                range_color = (iacyg['Insurance_Count'].min(), iacyg['Insurance_Count'].max()),
+                title = f'Insurance Count- {year}',
+                fitbounds='locations',
+                hover_name='States',  # Column to display on hover
+                hover_data={"Insurance_Count": True},
+                height=600,width=600
+            )
+            fig2.update_geos(visible=False)
+            # Display the figure in notebook
+            st.plotly_chart(fig2)
 
-        return iacy
-
-
+            return iacy
 
 def Insurance_count_amount_Q(df,quarter):
     iacq=df[df['Quarter']==quarter]
@@ -569,12 +168,12 @@ def Insurance_count_amount_Q(df,quarter):
     with col1:
 
 # Ins amt
-        fig_q_amount=px.bar(iacqg,x ='States',y='Insurance_Amount',title=f'Insurance Amount for Quarter - {quarter}',height=750,width=1000,
+        fig_q_amount=px.bar(iacqg,x ='States',y='Insurance_Amount',title=f'Insurance Amount for Quarter - {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_q_amount)
     with col2:
 # ins count
-        fig_q_count=px.bar(iacqg,x ='States',y='Insurance_Count',title=f'Insurance Count for Quarter- {quarter}',height=750,width=1000,
+        fig_q_count=px.bar(iacqg,x ='States',y='Insurance_Count',title=f'Insurance Count for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_q_count)
 
@@ -598,11 +197,11 @@ def Insurance_count_amount_Q(df,quarter):
             color='Insurance_Amount',
             color_continuous_scale='turbo',
             range_color = (iacqg['Insurance_Amount'].min(), iacqg['Insurance_Amount'].max()),
-            title = f'Insurance Amount- {quarter}',
+            title = f'Insurance Amount for Quarter- {quarter}',
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
             hover_data={"Insurance_Amount": True},
-            height=750,width=1000
+            height=600,width=600
         )
         fig5.update_geos(visible=False)
         st.plotly_chart(fig5)
@@ -617,18 +216,16 @@ def Insurance_count_amount_Q(df,quarter):
             color='Insurance_Count',
             color_continuous_scale='turbo',
             range_color = (iacqg['Insurance_Count'].min(), iacqg['Insurance_Count'].max()),
-            title = f'Insurance count- {quarter}',
+            title = f'Insurance Amount for Quarter- {quarter}',
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
             hover_data={"Insurance_Count": True},
-            height=750,width=1000
+            height=600,width=600
         )
         fig6.update_geos(visible=False)
         st.plotly_chart(fig6)
 
         return iacq
-
-
 
 def Transaction_count_amount_Y(df,year):
     tacy=df[df['Year']==year]
@@ -640,12 +237,12 @@ def Transaction_count_amount_Y(df,year):
     col1,col2=st.columns(2)
     with col1:
 # Ins amt
-        fig_amount=px.bar(tacyg,x ='States',y='Transaction_Amount',title=f'Transaction Amount - {year}',height=750,width=1000,
+        fig_amount=px.bar(tacyg,x ='States',y='Transaction_Amount',title=f'Transaction Amount - {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_amount)
     with col2:
 # ins count
-        fig_count=px.bar(tacyg,x ='States',y='Transaction_Count',title=f'Transaction Count- {year}',height=750,width=1000,
+        fig_count=px.bar(tacyg,x ='States',y='Transaction_Count',title=f'Transaction Count- {year}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_count)
     
@@ -672,12 +269,12 @@ def Transaction_count_amount_Y(df,year):
         title = f'Transaction Amount- {year}',
         fitbounds='locations',
         hover_name='States',  # Column to display on hover
-        height=750,width=1000
+        height=600,width=600
         )
         fig3.update_geos(visible=False)
         # Display the figure in notebook
         st.plotly_chart(fig3)
-
+    with col2:
         # Create a choropleth map for India
         fig4 = px.choropleth(   
             tacyg,
@@ -687,10 +284,10 @@ def Transaction_count_amount_Y(df,year):
             color='Transaction_Count',
             color_continuous_scale='turbo',
             range_color = (tacyg['Transaction_Count'].min(), tacyg['Transaction_Count'].max()),
-            title = f'Transaction Count- {year}',
+            title = f'Transaction Count - {year}',
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
-            height=750,width=1000
+            height=600,width=600
         )
         fig4.update_geos(visible=False)
         # Display the figure in notebook
@@ -707,12 +304,12 @@ def Transaction_count_amount_Q(df,quarter):
     col1,col2= st.columns(2)
     with col1:
 # Ins amt
-        fig_amount=px.bar(tacqg,x ='States',y='Transaction_Amount',title=f'Transaction Amount for Quarter- {quarter}',height=750,width=1000,
+        fig_amount=px.bar(tacqg,x ='States',y='Transaction_Amount',title=f'Transaction Amount for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart (fig_amount)
 # ins count
     with col2:
-        fig_count=px.bar(tacqg,x ='States',y='Transaction_Count',title=f'Transaction Count for Quarter- {quarter}',height=750,width=1000,
+        fig_count=px.bar(tacqg,x ='States',y='Transaction_Count',title=f'Transaction Count for Quarter- {quarter}',height=600,width=600,
                         color_discrete_sequence=px.colors.sequential.Brwnyl)
         st.plotly_chart(fig_count)
 
@@ -736,10 +333,10 @@ def Transaction_count_amount_Q(df,quarter):
             color='Transaction_Amount',
             color_continuous_scale='turbo',
             range_color = (tacqg['Transaction_Amount'].min(), tacqg['Transaction_Amount'].max()),
-            title = f'Transaction Amount- {quarter}',
+            title = f'Transaction Amount For Quarter- {quarter}',
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
-            height=750,width=1000
+            height=600,width=600
         )
         fig7.update_geos(visible=False)
         # Display the figure in notebook
@@ -754,10 +351,10 @@ def Transaction_count_amount_Q(df,quarter):
             color='Transaction_Count',
             color_continuous_scale='turbo',
             range_color = (tacqg['Transaction_Count'].min(), tacqg['Transaction_Count'].max()),
-            title = f'Transaction count- {quarter}',
+            title = f'Transaction count For Quarter- {quarter}',
             fitbounds='locations',
             hover_name='States',  # Column to display on hover
-            height=750,width=1000
+            height=600,width=600
         )
         fig8.update_geos(visible=False)
         st.plotly_chart(fig8) 
@@ -776,7 +373,7 @@ def Agg_trans_method(df,states):
     col1,col2=st.columns(2)
     with col1:
 
-        fig_bar1=px.bar(data_frame=tacyg,
+        fig_pie1=px.pie(data_frame=tacyg,
                         names='Transaction_Method',
                         values='Transaction_Amount', 
                         width=600,
@@ -784,10 +381,10 @@ def Agg_trans_method(df,states):
                         hole=0.5,
                         color_discrete_sequence=px.colors.sequential.Bluered_r
                         )
-        st.plotly_chart(fig_bar1) 
+        st.plotly_chart(fig_pie1) 
     
     with col2:
-        fig_bar2=px.bar(data_frame=tacyg,
+        fig_pie2=px.pie(data_frame=tacyg,
                         names='Transaction_Method',
                         values='Transaction_Count', 
                         width=600,
@@ -795,35 +392,18 @@ def Agg_trans_method(df,states):
                         hole=0.5,
                         color_discrete_sequence=px.colors.sequential.Bluered_r
                         )
-        st.plotly_chart(fig_bar2) 
+        st.plotly_chart(fig_pie2) 
 
-def Agg_user_Y(df,states):
-    uacy=df[df['States']==states]
+def Agg_user_Y(df,year):
+    uacy=df[df['Year']==year]
     uacy.reset_index(drop=True, inplace=True)
 
-    uacyg=uacy.groupby('Brands')[['User_Count','Percentage']].sum()
+    uacyg=uacy.groupby('Brands')[['User_Count']].sum()
     uacyg.reset_index(inplace=True)
 # User Count
-    fig_bar3=px.bar(data_frame=uacyg,
-                    names='Brands',
-                    values='User_Count', 
-                    width=600,
-                    title=f'User Count-{states}',
-                    hole=0.5,
-                    color_discrete_sequence=px.colors.sequential.Emrld
-                    )
-    st.plotly_chart(fig_bar3)
-# User Percentage
-    fig_bar4=px.bar(data_frame=uacyg,
-                    names='Brands',
-                    values='Percentage', 
-                    width=600,
-                    title=f'User Percentage-{states}',
-                    hole=0.5,
-                    color_discrete_sequence=px.colors.sequential.Emrld
-                    )
-    st.plotly_chart(fig_bar4)
-
+    fig_line_1= px.bar(uacyg, x="Brands",y= "User_Count", title=f" BRANDS AND USER COUNT-{year}",
+                    width=1000,color_discrete_sequence=px.colors.sequential.haline_r)
+    st.plotly_chart(fig_line_1)
     return uacy
 
 def Agg_user_Q(df,quarter):
@@ -833,17 +413,10 @@ def Agg_user_Q(df,quarter):
     uacqg=uacq.groupby('Brands')[['User_Count','Percentage']].sum()
     uacqg.reset_index(inplace=True)
 # User Count
-    fig_pie1=px.pie(data_frame=uacqg,
-                    names='Brands',
-                    values='User_Count', 
-                    hover_data= "Percentage",
-                    width=600,
-                    title=f'User Count Percentage-{quarter}',
-                    hole=0.5,
-                    color_discrete_sequence=px.colors.sequential.Emrld
-                    )
-    st.plotly_chart(fig_pie1)
-
+    fig_pie_1= px.pie(data_frame=uacq, names= "Brands", values="User_Count", hover_data= "Percentage",
+                      width=1000,title=f"USER COUNT PERCENTAGE FOR QUARTER {quarter}",hole=0.5, color_discrete_sequence= px.colors.sequential.Magenta_r)
+    st.plotly_chart(fig_pie_1)
+    
     return uacq
 
 def Aggre_user_plot_3(df,state):
@@ -853,7 +426,7 @@ def Aggre_user_plot_3(df,state):
     aguqyg= pd.DataFrame(aguqy.groupby("Brands")["User_Count"].sum())
     aguqyg.reset_index(inplace= True)
 
-    fig_bar5= px.bar(aguqyg, x= "Brands", y= "User_Count",width=1000)
+    fig_bar5= px.bar(aguqyg, x= "Brands", y= "User_Count", width=1000)
     st.plotly_chart(fig_bar5)
 
 def map_insure_plot_1(df,state):
@@ -864,7 +437,7 @@ def map_insure_plot_1(df,state):
     col1,col2= st.columns(2)
     with col1:
         fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Amount",
-                              width=600, height=500, title= f"{state} District Insurance Count",
+                              width=600, height=500, title= f"{state} District Insurance Amount",
                               color_discrete_sequence= px.colors.sequential.Mint_r)
         st.plotly_chart(fig_map_bar_1)
         
@@ -879,23 +452,62 @@ def map_insure_plot_1(df,state):
 
 def map_insure_plot_2(df,state):
     miys= df[df["States"] == state]
+    miysg= miys.groupby("District")[["Insurance_Count","Insurance_Amount"]].sum()
+    miysg.reset_index(inplace= True)
+
+    col1,col2= st.columns(2)
+    with col1:
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Amount",
+                              width=600, height=500, title= f"{state} District Insurance Amount",
+                              color_discrete_sequence= px.colors.sequential.Mint_r)
+        st.plotly_chart(fig_map_bar_1)
+        
+    with col2:
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Insurance_Count",
+                              width=600, height= 500, title= f"{state} District Insurance Count",
+                              color_discrete_sequence= px.colors.sequential.Mint)
+        st.plotly_chart(fig_map_bar_1)
+
+
+def map_trans_plot_1(df,state):
+    miys= df[df["States"] == state]
     miysg= miys.groupby("District")[["Transaction_Count","Transaction_Amount"]].sum()
     miysg.reset_index(inplace= True)
 
     col1,col2= st.columns(2)
     with col1:
-        fig_map_pie_1= px.pie(miysg, names= "District", values= "Transaction_Amount",
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Amount",
                               width=600, height=500, title= f"{state} District Transaction Amount",
-                              hole=0.5,color_discrete_sequence= px.colors.sequential.Mint_r)
-        st.plotly_chart(fig_map_pie_1)
+                              color_discrete_sequence= px.colors.sequential.Mint_r)
+        st.plotly_chart(fig_map_bar_1)
         
+
     with col2:
-        fig_map_pie_1= px.pie(miysg, names= "District", values= "Transaction_Count",
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Count",
                               width=600, height= 500, title= f"{state} District Transaction Count",
-                              hole=0.5,  color_discrete_sequence= px.colors.sequential.Oranges_r)
+                              color_discrete_sequence= px.colors.sequential.Mint)
         
-        st.plotly_chart(fig_map_pie_1)
-       
+        st.plotly_chart(fig_map_bar_1)
+
+def map_trans_plot_2(df,state):
+    miys= df[df["States"] == state]
+    miysg= miys.groupby("District")[["Transaction_Count","Transaction_Amount"]].sum()
+    miysg.reset_index(inplace= True)
+
+    col1,col2= st.columns(2)
+    with col1:
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Amount",
+                              width=600, height=500, title= f"{state} District Transaction Amount",
+                              color_discrete_sequence= px.colors.sequential.Mint_r)
+        st.plotly_chart(fig_map_bar_1)
+        
+
+    with col2:
+        fig_map_bar_1= px.bar(miysg, x= "District", y= "Transaction_Count",
+                              width=600, height= 500, title= f"{state} District Transaction Count",
+                              color_discrete_sequence= px.colors.sequential.Mint)
+        
+        st.plotly_chart(fig_map_bar_1)
 
 def map_user_plot_1(df, year):
     muy= df[df["Year"] == year]
@@ -903,12 +515,21 @@ def map_user_plot_1(df, year):
     muyg= muy.groupby("States")[["Registered_User", "App_Opens"]].sum()
     muyg.reset_index(inplace= True)
 
-    fig_map_user_plot_1 = px.line(muyg, x="States", y=["Registered_User", "App_Opens"],
-                              markers=True, width=1000, height=800,
-                              title=f" Registered User And App_Opens in {year}",
-                              color_discrete_sequence=px.colors.sequential.Viridis_r)
+    col1,col2=st.columns(2)
+    with col1:
+        fig_map_user_plot_1 = px.line(muyg, x="States", y=["Registered_User"],
+                                markers=True, width=1000, height=800,
+                                title=f" Registered User And App_Opens in {year}",
+                                color_discrete_sequence=px.colors.sequential.Viridis_r)
 
-    st.plotly_chart(fig_map_user_plot_1)
+        st.plotly_chart(fig_map_user_plot_1)
+    with col2:
+        fig_map_user_plot_1 = px.line(muyg, x="States", y=["App_Opens"],
+                                markers=True, width=1000, height=800,
+                                title=f" Registered User And App_Opens in {year}",
+                                color_discrete_sequence=px.colors.sequential.Viridis_r)
+
+        st.plotly_chart(fig_map_user_plot_1)
 
     return muy
 
@@ -918,11 +539,17 @@ def map_user_plot_2(df, quarter):
     muyqg= muyq.groupby("States")[["Registered_User", "App_Opens"]].sum()
     muyqg.reset_index(inplace= True)
 
-    fig_map_user_plot_1= px.line(muyqg, x= "States", y= ["Registered_User","App_Opens"], markers= True,
-                                title= f" Quarter Wise Registered_User AND App_Opens {df['Years'].min()}, {quarter}",
-                                width= 1000,height=800,color_discrete_sequence= px.colors.sequential.Rainbow_r)
-    st.plotly_chart(fig_map_user_plot_1)
-
+    col1,col2=st.columns(2)
+    with col1:
+        fig_map_user_plot_1= px.line(muyqg, x= "States", y= ["Registered_User"], markers= True,
+                                    title= f" Quarter Wise Registered_User  {df['Year'].min()}, {quarter}",
+                                    width= 1000,height=800,color_discrete_sequence= px.colors.sequential.Rainbow_r)
+        st.plotly_chart(fig_map_user_plot_1)
+    with col2:
+        fig_map_user_plot_1= px.line(muyqg, x= "States", y= ["App_Opens"], markers= True,
+                                    title= f" Quarter Wise  App_Opens {df['Year'].min()}, {quarter}",
+                                    width= 1000,height=800,color_discrete_sequence= px.colors.sequential.Rainbow_r)
+        st.plotly_chart(fig_map_user_plot_1)
     return muyq
 
 def map_user_plot_3(df, state):
@@ -970,4 +597,281 @@ def top_user_plot_2(df,state):
     st.plotly_chart(fig_top_plot_1)
 
 # questions
+# 1. Which state has the highest number of transaction counts in a specific year and quarter?
+def ques1():
+    q1=Agg_transaction[['Transaction_Method', 'Transaction_Amount']]
+    t1=q1.groupby('Transaction_Method')['Transaction_Amount'].sum().sort_values(ascending=False)
+    df1=pd.DataFrame(t1).reset_index()
+
+    fig_q1 = px.bar(df1, x= "Transaction_Method", y= "Transaction_Amount", title=" MAXIMUM TRANSACTION AMOUNT BY TRANSACTION METHOD",
+                color_discrete_sequence= px.colors.sequential.Aggrnyl,
+                        template='plotly_dark')
+    fig_q1.show(renderer='colab')
+    return st.plotly_chart(fig_q1)
+
+    
+# 2. Which transaction method is most commonly used in a specific state during a certain year and quarter?
+def qeus2():
+    q2=Agg_transaction[['Transaction_Method', 'Transaction_Count']]
+    t2=q2.groupby('Transaction_Method')['Transaction_Count'].sum().sort_values(ascending=False)
+    df2=pd.DataFrame(t2).reset_index()
+
+    fig_q2 = px.bar(df2, x= "Transaction_Method", y= "Transaction_Count", title=" MAXIMUM TRANSACTION COUNT BY TRANSACTION METHOD",
+                color_discrete_sequence= px.colors.sequential.Aggrnyl,
+                        template='plotly_dark')
+    return st.plotly_chart(fig_q2)
+
+# 3. Which brand has the highest user count  
+def ques3():
+    q3=Agg_user[['Brands', 'User_Count']]
+    t3=q3.groupby('Brands')['User_Count'].sum().sort_values(ascending=False)
+    df3=pd.DataFrame(t3).reset_index()
+
+    fig_q3 = px.bar(df3, x= "Brands", y= "User_Count", title="USER COUNT BY BRANDS ",
+                color_discrete_sequence= px.colors.sequential.Aggrnyl,
+                        template='plotly_dark')
+    return st.plotly_chart(fig_q3)
+
+# 4	transaction
+def ques4():
+    q4= Map_user[["States", "App_Opens"]]
+    t4= q4.groupby("States")["App_Opens"].sum().sort_values(ascending=False)
+    df4= pd.DataFrame(t4).reset_index().tail(10)
+
+    fig_q4= px.bar(df4, x= "States", y= "App_Opens", title="LOWEST 10 STATES WITH APP_OPENS",
+            color_discrete_sequence= px.colors.sequential.dense_r)
+    return st.plotly_chart(fig_q4)
+
+# 5. lowest transaction amount and state
+def ques5():
+    q5= Agg_transaction[["States", "Transaction_Amount"]]
+    t5= q5.groupby("States")["Transaction_Amount"].sum().sort_values(ascending= False)
+    df5= pd.DataFrame(t5).reset_index().tail(10)
+
+    fig_q5= px.bar(df5, x= "States", y= "Transaction_Amount",title= "LOWEST TRANSACTION AMOUNT and STATES",
+                    color_discrete_sequence= px.colors.sequential.Oranges_r)
+    return st.plotly_chart(fig_q5)
+# 6. Districts with the highest transaction amount
+def ques6():
+    q6= Agg_transaction[["District", "Transaction_Amount"]]
+    t6= q6.groupby("District")["Transaction_Amount"].sum().sort_values(ascending=False)
+    df6= pd.DataFrame(t6).head(10).reset_index()
+
+    fig_q6= px.pie(df6, values= "Transaction_Amount", names= "District", title="TOP 10 DISTRICTS OF HIGHEST TRANSACTION AMOUNT",
+                    color_discrete_sequence=px.colors.sequential.Emrld_r)
+    return st.plotly_chart(fig_q6)
+# 7.States With Lowest Transaction Count
+def ques7():
+    q7= Agg_transaction[["States", "Transaction_Count"]]
+    t7= q7.groupby("States")["Transaction_Count"].sum().sort_values(ascending=True)
+    df7= pd.DataFrame(t7).reset_index()
+
+    fig_q7= px.bar(df7, x= "States", y= "Transaction_Count", title= "STATES WITH LOWEST TRANSACTION COUNT",
+                    color_discrete_sequence= px.colors.sequential.Jet_r)
+    return st.plotly_chart(fig_q7)
+# 8.States With Highest Transaction Count
+def ques8():
+    q8= Agg_transaction[["States", "Transaction_Count"]]
+    t8= q8.groupby("States")["Transaction_Count"].sum().sort_values(ascending=False)
+    df8= pd.DataFrame(t8).reset_index()
+
+    fig_q8= px.bar(df8, x= "States", y= "Transaction_count", title= "STATES WITH HIGHEST TRANSACTION COUNT",
+                    color_discrete_sequence= px.colors.sequential.Magenta_r)
+    return st.plotly_chart(fig_q8)
+# 
+def ques9():
+    q9=Map_transaction[['District','Transaction_Count']]
+    t9=q9.groupby('District')['Transaction_Count'].sum().sort_values(ascending= True)
+    df9=pd.DataFrame(t9).reset_index().head(10)
+ 
+    fig_q9 = px.line(df9, x='District', y=['Transaction_Count'],
+                        title='TOP 10 TRANSACTION COUNT BY DISTRICT ',
+                        labels={'District': 'District', 'value': 'Count/Amount'},
+                        template='plotly_dark', markers=True)
+  
+    return st.plotly_chart(fig_q9)
+
+def ques10():
+    q10=Map_transaction[['District','Transaction_Amount']]
+    t10=q10.groupby('District')['Transaction_Amount'].sum().sort_values(ascending= True)
+    df10=pd.DataFrame(t10).reset_index().head(10)
+
+    fig_q10 = px.line(df10, x='District', y=['Transaction_Amount'],
+                        title='TOP 10 TRANSACTION AMOUNT BY DISTRICT',
+                        labels={'District': 'District', 'value': 'Count/Amount'},
+                        template='plotly_dark', markers=True)
+  
+    return st.plotly_chart(fig_q10)
+    
+#Streamlit part
+
+st.set_page_config(layout= "wide")
+
+st.title("PHONEPE DATA VISUALIZATION AND EXPLORATION")
+st.write("")
+
+with st.sidebar:
+    select= option_menu("Main Menu",[ "Data Exploration", "Top Charts"])
+
+
+if select == "Data Exploration":
+    tab1, tab2, tab3= st.tabs(["Aggregated Analysis", "Map Analysis", "Top Analysis"])
+
+    with tab1:
+        method = st.radio("**Select the Analysis Method**",["Insurance Analysis", "Transaction Analysis", "User Analysis"])
+
+        if method == "Insurance Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years=st.selectbox("Select the Year",Agg_insurance["Year"].unique())
+            df_agg_insur_Y= Insurance_count_amount_Y(Agg_insurance,years)
+            
+            col1,col2= st.columns(2)
+            with col1:
+                 quarters=st.selectbox("Select the Quarter",df_agg_insur_Y["Quarter"].unique())
+            Insurance_count_amount_Q(df_agg_insur_Y, quarters)
+        
+        elif method == "Transaction Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_at=st.selectbox("Select the Year",Agg_transaction["Year"].unique())
+            df_agg_tran_Y= Transaction_count_amount_Y(Agg_transaction,years_at)
+            
+            col1,col2= st.columns(2)
+            with col1:
+                quarters_at=st.selectbox("Select the Year",df_agg_tran_Y["Quarter"].unique())
+
+            df_agg_tran_Q= Transaction_count_amount_Q(df_agg_tran_Y, quarters_at)
+            
+            #Select the State for Analyse the Transaction type
+            state_Y_Q= st.selectbox("**Select the State**",df_agg_tran_Q["States"].unique())
+
+            Agg_trans_method(df_agg_tran_Q,state_Y_Q)   
+        
+        elif method == "User Analysis":
+            year_au= st.selectbox("Select the Year",Agg_user["Year"].unique())
+            agg_user_Y= Agg_user_Y(Agg_user,year_au)
+
+            quarter_au= st.selectbox("Select the Quarter",agg_user_Y["Quarter"].unique())
+            agg_user_Y_Q= Agg_user_Q(agg_user_Y,quarter_au)
+
+            state_au= st.selectbox("**Select the State**",agg_user_Y["States"].unique())
+            Aggre_user_plot_3(agg_user_Y_Q,state_au)
+
+    with tab2:
+        method_map = st.radio("**Select the Analysis Method(MAP)**",["Map Insurance Analysis", "Map Transaction Analysis", "Map User Analysis"])
+
+
+        if method_map == "Map Insurance Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_m1= st.slider("**Select the Year**", Map_insurance["Year"].min(), Map_insurance["Year"].max(),Map_insurance["Year"].min())
+
+            df_map_insur_Y= Insurance_count_amount_Y(Map_insurance,years_m1)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_m1= st.selectbox("Select the State", df_map_insur_Y["States"].unique())
+
+            map_insure_plot_1(df_map_insur_Y,state_m1)
+            
+            col1,col2= st.columns(2)
+            with col1:
+                quarters_m1= st.slider("**Select the Quarter**", df_map_insur_Y["Quarter"].min(), df_map_insur_Y["Quarter"].max(),df_map_insur_Y["Quarter"].min())
+
+            df_map_insur_Y_Q= Insurance_count_amount_Q(df_map_insur_Y, quarters_m1)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_m2= st.selectbox("Select the State", df_map_insur_Y_Q["States"].unique())            
+            
+            map_insure_plot_2(df_map_insur_Y_Q, state_m2)
+        
+        
+        elif method_map == "Map Transaction Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_m2= st.slider("**Select the Year**", Map_transaction["Year"].min(), Map_transaction["Year"].max(),Map_transaction["Year"].min())
+
+            df_map_tran_Y= Transaction_count_amount_Y(Map_transaction, years_m2)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_m3= st.selectbox("Select the State", df_map_tran_Y["States"].unique())
+
+            map_trans_plot_1(df_map_tran_Y,state_m3)
+            
+            col1,col2= st.columns(2)
+            with col1:
+                quarters_m2= st.slider("**Select the Quarter**", df_map_tran_Y["Quarter"].min(), df_map_tran_Y["Quarter"].max(),df_map_tran_Y["Quarter"].min())
+
+            df_map_tran_Y_Q= Transaction_count_amount_Q(df_map_tran_Y, quarters_m2)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_m4= st.selectbox("Select the State", df_map_tran_Y_Q["States"].unique(),key='State_Selection')            
+            
+            map_trans_plot_2(df_map_tran_Y_Q, state_m4)
+
+        elif method_map == "Map User Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                year_mu3= st.selectbox("**Select the Year**",Map_user["Year"].unique(),key='Year_Selection')
+            map_user_Y= map_user_plot_1(Map_user, year_mu3)
+
+            col1,col2= st.columns(2)
+            with col1:
+                quarter_mu3= st.selectbox("**Select the Quarter",map_user_Y["Quarter"].unique())
+            map_user_Y_Q= map_user_plot_2(map_user_Y,quarter_mu3)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_mu3= st.selectbox("**Select the State**",map_user_Y_Q["States"].unique(),key='State_selection')
+            map_user_plot_3(map_user_Y_Q, state_mu3)
+
+    with tab3:
+        method_top = st.radio("**Select the Analysis Method(TOP)**",["Top Insurance Analysis", "Top Transaction Analysis", "Top User Analysis"])
+
+        if method_top == "Top Insurance Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_t1= st.slider("**Select the Year**", Top_insurance["Year"].min(), Top_insurance["Year"].max(),Top_insurance["Year"].min())
+ 
+            df_top_insur_Y= Insurance_count_amount_Y(Top_insurance,years_t1)
+
+            
+            col1,col2= st.columns(2)
+            with col1:
+                quarters_t1= st.slider("**Select the Quarter**", df_top_insur_Y["Quarter"].min(), df_top_insur_Y["Quarter"].max(),df_top_insur_Y["Quarter"].min())
+
+            df_top_insur_Y_Q= Insurance_count_amount_Q(df_top_insur_Y, quarters_t1)
+        
+        elif method_top == "Top Transaction Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_t2= st.slider("**Select the Year**", Top_transaction["Year"].min(), Top_transaction["Year"].max(),Top_transaction["Year"].min())
+ 
+            df_top_tran_Y= Transaction_count_amount_Y(Top_transaction,years_t2)
+
+            
+            col1,col2= st.columns(2)
+            with col1:
+                quarters_t2= st.slider("**Select the Quarter**", df_top_tran_Y["Quarter"].min(), df_top_tran_Y["Quarter"].max(),df_top_tran_Y["Quarter"].min())
+
+            df_top_tran_Y_Q= Transaction_count_amount_Q(df_top_tran_Y, quarters_t2)
+
+        elif method_top == "Top User Analysis":
+            col1,col2= st.columns(2)
+            with col1:
+                years_t3= st.selectbox("**Select the Year**", Top_user["Year"].unique())
+
+            df_top_user_Y= top_user_plot_1(Top_user,years_t3)
+
+            col1,col2= st.columns(2)
+            with col1:
+                state_t3= st.selectbox("**Select the State**", df_top_user_Y["States"].unique(),key='State_Selection')
+
+            df_top_user_Y_S= top_user_plot_2(df_top_user_Y,state_t3)
+    
+
 
