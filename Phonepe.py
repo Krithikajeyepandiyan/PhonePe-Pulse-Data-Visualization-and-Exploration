@@ -597,7 +597,7 @@ def top_user_plot_2(df,state):
     st.plotly_chart(fig_top_plot_1)
 
 # questions
-# 1. Which state has the highest number of transaction counts in a specific year and quarter?
+# 1.Which state has the highest number of transaction counts in a specific year and quarter?
 def ques1():
     q1=Agg_transaction[['Transaction_Method', 'Transaction_Amount']]
     t1=q1.groupby('Transaction_Method')['Transaction_Amount'].sum().sort_values(ascending=False)
@@ -610,7 +610,7 @@ def ques1():
     return st.plotly_chart(fig_q1)
 
     
-# 2. Which transaction method is most commonly used in a specific state during a certain year and quarter?
+# 2.Which transaction method is most commonly used in a specific state during a certain year and quarter?
 def qeus2():
     q2=Agg_transaction[['Transaction_Method', 'Transaction_Count']]
     t2=q2.groupby('Transaction_Method')['Transaction_Count'].sum().sort_values(ascending=False)
@@ -621,7 +621,7 @@ def qeus2():
                         template='plotly_dark')
     return st.plotly_chart(fig_q2)
 
-# 3. Which brand has the highest user count  
+# 3.Which brand has the highest user count  
 def ques3():
     q3=Agg_user[['Brands', 'User_Count']]
     t3=q3.groupby('Brands')['User_Count'].sum().sort_values(ascending=False)
@@ -642,7 +642,7 @@ def ques4():
             color_discrete_sequence= px.colors.sequential.dense_r)
     return st.plotly_chart(fig_q4)
 
-# 5. lowest transaction amount and state
+# 5.lowest transaction amount and state
 def ques5():
     q5= Agg_transaction[["States", "Transaction_Amount"]]
     t5= q5.groupby("States")["Transaction_Amount"].sum().sort_values(ascending= False)
@@ -651,7 +651,7 @@ def ques5():
     fig_q5= px.bar(df5, x= "States", y= "Transaction_Amount",title= "LOWEST TRANSACTION AMOUNT and STATES",
                     color_discrete_sequence= px.colors.sequential.Oranges_r)
     return st.plotly_chart(fig_q5)
-# 6. Districts with the highest transaction amount
+# 6.districts with highest transaction amount
 def ques6():
     q6= Agg_transaction[["District", "Transaction_Amount"]]
     t6= q6.groupby("District")["Transaction_Amount"].sum().sort_values(ascending=False)
@@ -660,7 +660,7 @@ def ques6():
     fig_q6= px.pie(df6, values= "Transaction_Amount", names= "District", title="TOP 10 DISTRICTS OF HIGHEST TRANSACTION AMOUNT",
                     color_discrete_sequence=px.colors.sequential.Emrld_r)
     return st.plotly_chart(fig_q6)
-# 7.States With Lowest Transaction Count
+# 7.States With Lowest Trasaction Count
 def ques7():
     q7= Agg_transaction[["States", "Transaction_Count"]]
     t7= q7.groupby("States")["Transaction_Count"].sum().sort_values(ascending=True)
@@ -669,7 +669,7 @@ def ques7():
     fig_q7= px.bar(df7, x= "States", y= "Transaction_Count", title= "STATES WITH LOWEST TRANSACTION COUNT",
                     color_discrete_sequence= px.colors.sequential.Jet_r)
     return st.plotly_chart(fig_q7)
-# 8.States With Highest Transaction Count
+# 8.States With Highest Trasaction Count
 def ques8():
     q8= Agg_transaction[["States", "Transaction_Count"]]
     t8= q8.groupby("States")["Transaction_Count"].sum().sort_values(ascending=False)
@@ -873,5 +873,3 @@ if select == "Data Exploration":
 
             df_top_user_Y_S= top_user_plot_2(df_top_user_Y,state_t3)
     
-
-
